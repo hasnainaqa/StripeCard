@@ -65,7 +65,6 @@ export default function PlaidPage() {
         </div>
       </div>
 
-      {/* Toast container */}
       <ToastContainer />
     </div>
   );
