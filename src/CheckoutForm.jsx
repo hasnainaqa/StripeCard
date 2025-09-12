@@ -122,7 +122,7 @@ const CheckoutForm = () => {
               <CreditCard className="w-5 h-5 text-[#22c55e]" />
               Card Information
             </label>
-            <div className="p-3 border rounded-lg shadow-sm focus-within:ring-2 focus-within:ring-[#52FF34] bg-gray-100">
+            <div className="p-3 rounded-lg shadow-sm focus-within:ring-2 focus-within:ring-[#52FF34] bg-gray-100">
               <CardElement options={CARD_OPTIONS} />
             </div>
           </div>
@@ -136,13 +136,10 @@ const CheckoutForm = () => {
           </button>
 
           {paypentError && (
-            <p className="absolute text-sm text-center -mt-2 text-red-600">
+            <p className="absolute text-xs text-start -mt-3 text-red-600 w-80 ">
               {paypentError}
             </p>
           )}
-          {/* {success && (
-            <p className="text-sm text-center mt-2 text-black">{success}</p>
-          )} */}
           <ToastContainer />
         </form>
 
