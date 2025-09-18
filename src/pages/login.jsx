@@ -52,7 +52,7 @@ const Login = () => {
         setError("Invalid phone or password");
       }
     } catch (err) {
-      setError("Something went wrong");
+      setError("Something went wrong" );
     } finally {
       setLoading(false);
     }
