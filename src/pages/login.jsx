@@ -3,8 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { loginUser, isUserLoggedIn } from "../utils/aouth";
 import PhoneInputComponent from "../components/ui/PhoneInputComponent";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Login = () => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   const { token } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -35,13 +38,16 @@ const Login = () => {
     setError("");
 
     try {
-      const validPhone = "+905555555222";
-      const validPassword = "123456";
-
-      if (data.phone === validPhone && data.password === validPassword) {
-        const fakeToken = "hardcoded_token_123";
-        loginUser(fakeToken);
-        navigate("/");
+      if (data.phone && data.password) {
+        const res = await axios.post(`${API_BASE_URL}/auth/login`, {
+          phoneNumber: data.phone,
+          code: data.password,
+        });
+        if (res?.data) {
+          const token = res?.data?.access_token;
+          loginUser(token);
+          navigate("/");
+        }
       } else {
         setError("Invalid phone or password");
       }
@@ -57,9 +63,7 @@ const Login = () => {
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-[#9bec8d] to-[#52FF34] p-6">
-          <h2 className="text-2xl font-bold text-black text-center">
-             Login
-          </h2>
+          <h2 className="text-2xl font-bold text-black text-center">Login</h2>
           <p className="text-sm text-black text-center mt-1">
             Welcome back! Please log in to continue
           </p>
@@ -84,9 +88,11 @@ const Login = () => {
             placeholder="Password"
             {...register("password", { required: "Password is required" })}
             className="w-full pl-10 pr-3 py-3 bg-gray-100 placeholder:text-gray-500 text-black rounded-lg focus:outline-none shadow"
-            />
+          />
           {errors.password && (
-            <p className="absolute text-red-500 text-xs -mt-4.5">{errors.password.message}</p>
+            <p className="absolute text-red-500 text-xs -mt-4.5">
+              {errors.password.message}
+            </p>
           )}
 
           <button
@@ -98,7 +104,7 @@ const Login = () => {
           </button>
 
           <p className="text-xs text-gray-500 text-center mt-4">
-            Payments are securely processed 
+            Payments are securely processed
           </p>
         </form>
       </div>

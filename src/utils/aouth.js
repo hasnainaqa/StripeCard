@@ -1,15 +1,14 @@
 export const loginUser = (token) => {
-  localStorage.setItem("stripe", token);
+  localStorage.setItem("authToken", token);
 };
 export const logoutUser = () => {
-  localStorage.removeItem("stripe");
+  localStorage.removeItem("authToken");
 };
 
 export const isUserLoggedIn = () => {
-  const token = localStorage.getItem("stripe");
-  return token !== null;};
-
-
+  const token = localStorage.getItem("authToken");
+  return token !== null;
+};
 
 export const generateRandomToken = () => {
   return [...crypto.getRandomValues(new Uint8Array(16))]

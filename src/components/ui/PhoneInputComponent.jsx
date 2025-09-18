@@ -1,11 +1,11 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { Controller } from "react-hook-form";
 
 export default function PhoneInputComponent({ control, name, rules, error }) {
   const [phone, setPhone] = useState("");
-  const [dialCode, setDialCode] = useState("90");
+  const [dialCode, setDialCode] = useState("92");
 
   return (
     <div className="w-full relative">
@@ -28,7 +28,13 @@ export default function PhoneInputComponent({ control, name, rules, error }) {
                 }}
                 disableCountryCode
                 disableDropdown={false}
-                inputStyle={{ width: 1, height: 1, opacity: 0, padding: 0, border: "none" }}
+                inputStyle={{
+                  width: 1,
+                  height: 1,
+                  opacity: 0,
+                  padding: 0,
+                  border: "none",
+                }}
                 buttonStyle={{
                   backgroundColor: "#F1F4F1",
                   border: "none",
@@ -71,7 +77,9 @@ export default function PhoneInputComponent({ control, name, rules, error }) {
       />
 
       {error && (
-        <p className="text-red-500 text-xs mt-1">{error.message || "Phone is required"}</p>
+        <p className="text-red-500 text-xs mt-1">
+          {error.message || "Phone is required"}
+        </p>
       )}
     </div>
   );
