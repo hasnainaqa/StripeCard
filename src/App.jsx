@@ -15,17 +15,18 @@ function App() {
     <div className="w-full">
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<PlaidPage />} />
           <Route
-            path="/"
+            path="/checkout"
             element={
               <Elements stripe={stripePromise}>
                 <CheckoutForm />
               </Elements>
             }
           />
-          <Route path="/plaid" element={<PlaidPage />} />
+
           <Route path="/login" element={<Login />} />
-          </Routes>
+        </Routes>
       </BrowserRouter>
     </div>
   );

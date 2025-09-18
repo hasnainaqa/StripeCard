@@ -53,7 +53,6 @@ export default function PlaidPage() {
         <div className="flex flex-col items-center justify-center p-6 space-y-5">
           <button
             onClick={() => open()}
-            disabled={!ready || !linkToken}
             className={`w-full py-3 px-4 rounded-xl shadow-md font-medium transition ${
               !ready || !linkToken
                 ? "bg-gray-300 text-gray-600 cursor-not-allowed"
