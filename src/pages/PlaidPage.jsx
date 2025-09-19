@@ -3,13 +3,15 @@ import { usePlaidLink } from "react-plaid-link";
 import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import api from "../utils/api";
 
 export default function PlaidPage() {
   const [linkToken, setLinkToken] = useState(null);
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/create-link-token")
+    api
+      .post("/plaid/create-link-token")
       .then((res) => setLinkToken(res.data.link_token))
       .catch((err) => console.error("Error getting link token", err));
   }, []);
@@ -17,8 +19,8 @@ export default function PlaidPage() {
   const onSuccess = async (public_token) => {
     console.log("Public Token:", public_token);
 
-    await axios.post("http://localhost:8000/api/exchange-token", {
-      public_token,
+    await api.post("/plaid/exchange-public-token", {
+      publicToken: public_token,
     });
 
     toast.success("Bank account connected successfully!", {
@@ -53,7 +55,6 @@ export default function PlaidPage() {
         <div className="flex flex-col items-center justify-center p-6 space-y-5">
           <button
             onClick={() => open()}
-            disabled={!ready || !linkToken}
             className={`w-full py-3 px-4 rounded-xl shadow-md font-medium transition ${
               !ready || !linkToken
                 ? "bg-gray-300 text-gray-600 cursor-not-allowed"
