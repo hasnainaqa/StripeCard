@@ -38,18 +38,18 @@ const Login = () => {
     setError("");
 
     try {
-      if (data.phone && data.password) {
+      if (data.phone) {
         const res = await axios.post(`${API_BASE_URL}/auth/login`, {
           phoneNumber: data.phone,
-          code: data.password,
+          // code: data.password,
         });
         if (res?.data) {
-          const token = res?.data?.access_token;
+          const token = res?.data?.token;
           loginUser(token);
           navigate("/");
         }
       } else {
-        setError("Invalid phone or password");
+        setError("Invalid phone ");
       }
     } catch (err) {
       setError("Something went wrong");
@@ -83,7 +83,7 @@ const Login = () => {
             error={errors.phone}
           />
 
-          <input
+          {/* <input
             type="password"
             placeholder="Password"
             {...register("password", { required: "Password is required" })}
@@ -93,7 +93,7 @@ const Login = () => {
             <p className="absolute text-red-500 text-xs -mt-4.5">
               {errors.password.message}
             </p>
-          )}
+          )} */}
 
           <button
             type="submit"
